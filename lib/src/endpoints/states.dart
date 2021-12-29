@@ -13,13 +13,13 @@ class _States {
         print(res.data);
         return MYGRespnose(
           statusCode: res.statusCode,
-          data: State.fromJson(res.data),
+          data: MyState.fromJson(res.data),
         );
       }
       final MYGRespnose res = await _api.fetch(_name, args: args);
       return MYGRespnose(
         statusCode: res.statusCode,
-        data: State.fromJsons(res.data),
+        data: MyState.fromJsons(res.data),
       );
     } catch (e) {
       rethrow;
