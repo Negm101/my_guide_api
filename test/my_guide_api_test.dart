@@ -1,6 +1,4 @@
-import 'package:my_guide_api/src/helpers.dart';
-import 'package:my_guide_api/src/main.dart';
-import 'package:my_guide_api/src/models/state.dart';
+import 'package:my_guide_api/my_guide_api.dart';
 
 //populate=%2A
 void main() async {
