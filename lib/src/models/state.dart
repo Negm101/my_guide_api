@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-class State {
-  State({
+class MyState {
+  MyState({
     required this.data,
     required this.meta,
   });
   late final List<Data> data;
   late final Meta meta;
 
-  State.fromJson(Map<String, dynamic> json) {
+  MyState.fromJson(Map<String, dynamic> json) {
     data[0] = Data.fromJson(json['data']);
     meta = Meta.fromJson(json['meta']);
   }
 
-  State.fromJsons(Map<String, dynamic> json) {
+  MyState.fromJsons(Map<String, dynamic> json) {
     data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
     meta = Meta.fromJson(json['meta']);
   }
@@ -586,16 +586,16 @@ class Pagination {
   }
 }
 
-List<State>? parseStates(dynamic data) {
+List<MyState>? parseMyStates(dynamic data) {
   if (data is String) {
     return jsonDecode(data)
         .cast<Map<String, dynamic>>()
-        .map<State>((json) => State.fromJson(json))
+        .map<MyState>((json) => MyState.fromJson(json))
         .toList();
   } else {
     return data
         .cast<Map<String, dynamic>>()
-        .map<State>((json) => State.fromJson(json))
+        .map<MyState>((json) => MyState.fromJson(json))
         .toList();
   }
 }
