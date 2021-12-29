@@ -7,5 +7,5 @@ void main() async {
   final MYGRespnose res = await api.states.fetch(args: {"populate": "*"});
   statesData = res.data;
 
-  print(statesData.meta);
+  print(statesData.data.length);
 }
