@@ -1,27 +1,24 @@
 import 'dart:convert';
 
 class MyState {
-  MyState({
-    required this.data,
-    required this.meta,
-  });
-  late final List<Data> data;
-  late final Meta meta;
+  MyState({required this.data, this.meta, this.dataList});
+  late final Data? data;
+  late final Meta? meta;
+  late final List<Data>? dataList;
 
   MyState.fromJson(Map<String, dynamic> json) {
-    data[0] = Data.fromJson(json['data']);
-    meta = Meta.fromJson(json['meta']);
+    data = Data.fromJson(json['data']);
   }
 
   MyState.fromJsons(Map<String, dynamic> json) {
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    dataList = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
     meta = Meta.fromJson(json['meta']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['data'] = data[0].toJson();
-    _data['meta'] = meta.toJson();
+    _data['data'] = data!.toJson();
+    _data['meta'] = meta!.toJson();
     return _data;
   }
 }
@@ -243,8 +240,7 @@ class AttributesFlag {
 
   @override
   String toString() {
-    return 
-    """
+    return """
     AttributesFlag(
       name: $name, 
       alternativeText: $alternativeText, 
@@ -308,8 +304,7 @@ class Citiys {
   }
 
   @override
-  String toString() => 
-  """
+  String toString() => """
   Citiys(
     data: $data
   )
@@ -413,8 +408,7 @@ class Localization {
   }
 
   @override
-  String toString() => 
-  """
+  String toString() => """
   Localization(
     localizations: $localizations
   )
@@ -526,8 +520,8 @@ class Meta {
     required this.pagination,
   });
   late final Pagination pagination;
-  
-  Meta.fromJson(Map<String, dynamic> json){
+
+  Meta.fromJson(Map<String, dynamic> json) {
     pagination = Pagination.fromJson(json['pagination']);
   }
 
@@ -556,8 +550,8 @@ class Pagination {
   late final int pageSize;
   late final int pageCount;
   late final int total;
-  
-  Pagination.fromJson(Map<String, dynamic> json){
+
+  Pagination.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     pageSize = json['pageSize'];
     pageCount = json['pageCount'];

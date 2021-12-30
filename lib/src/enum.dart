@@ -1,5 +1,5 @@
 enum MYG{
-  city,
+  citiies,
   service, 
   state,
   university,
