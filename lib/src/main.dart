@@ -1,11 +1,13 @@
 library my_guide_api;
 
-import 'package:my_guide_api/src/helpers.dart';
+import 'package:my_guide_api/my_guide_api.dart';
 import 'package:dio/dio.dart';
 import 'package:my_guide_api/src/utils.dart';
-import 'package:my_guide_api/src/models.dart';
 
 part 'endpoints/states.dart';
+part 'endpoints/cities.dart';
+part 'endpoints/universities.dart';
+part 'endpoints/services.dart';
 
 class MYGuideApi {
   late String baseUrl;
@@ -45,4 +47,7 @@ class MYGuideApi {
   /// Standard Endpoins
 
   _States get states => _States(this);
+  _Cities get cities => _Cities(this);
+  _University get university => _University(this);
+  _Services get services => _Services(this);
 }

@@ -1,18 +1,17 @@
-import 'dart:convert';
 
 class MyState {
   MyState({required this.data, this.meta, this.dataList});
-  late final Data? data;
-  late final Meta? meta;
-  late final List<Data>? dataList;
+  late final DataState? data;
+  late final StatesMeta? meta;
+  late final List<DataState>? dataList;
 
   MyState.fromJson(Map<String, dynamic> json) {
-    data = Data.fromJson(json['data']);
+    data = DataState.fromJson(json['data']);
   }
 
   MyState.fromJsons(Map<String, dynamic> json) {
-    dataList = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
-    meta = Meta.fromJson(json['meta']);
+    dataList = List.from(json['data']).map((e) => DataState.fromJson(e)).toList();
+    meta = StatesMeta.fromJson(json['meta']);
   }
 
   Map<String, dynamic> toJson() {
@@ -23,17 +22,21 @@ class MyState {
   }
 }
 
-class Data {
-  Data({
+abstract class MainData {
+  
+}
+
+class DataState {
+  DataState({
     required this.id,
     required this.attributes,
   });
   late final int id;
-  late final Attributes attributes;
+  late final StateDataAttributes attributes;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataState.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    attributes = Attributes.fromJson(json['attributes']);
+    attributes = StateDataAttributes.fromJson(json['attributes']);
   }
 
   Map<String, dynamic> toJson() {
@@ -45,15 +48,15 @@ class Data {
 
   @override
   String toString() => """
-  Data(
+  DataState(
     id: $id, 
     attributes: $attributes
   )
   """;
 }
 
-class Attributes {
-  Attributes({
+class StateDataAttributes {
+  StateDataAttributes({
     required this.Name,
     required this.createdAt,
     required this.updatedAt,
@@ -68,19 +71,19 @@ class Attributes {
   late final String updatedAt;
   late final String publishedAt;
   late final String locale;
-  late final Flag? flag;
-  late final Citiys citiys;
-  late final Localizations localizations;
+  late final StateDataAttributesFlag? flag;
+  late final StateDataAttributesCities citiys;
+  late final StateDataAttributesLocalizations localizations;
 
-  Attributes.fromJson(Map<String, dynamic> json) {
+  StateDataAttributes.fromJson(Map<String, dynamic> json) {
     Name = json['Name'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     publishedAt = json['publishedAt'];
     locale = json['locale'];
-    flag = Flag.fromJson(json['Flag']);
-    citiys = Citiys.fromJson(json['citiys']);
-    localizations = Localizations.fromJson(json['localizations']);
+    flag = StateDataAttributesFlag.fromJson(json['Flag']);
+    citiys = StateDataAttributesCities.fromJson(json['citiys']);
+    localizations = StateDataAttributesLocalizations.fromJson(json['localizations']);
   }
 
   Map<String, dynamic> toJson() {
@@ -90,7 +93,7 @@ class Attributes {
     _data['updatedAt'] = updatedAt;
     _data['publishedAt'] = publishedAt;
     _data['locale'] = locale;
-    _data['Flag'] = flag?.toJson();
+    _data['attributes'] = flag?.toJson();
     _data['citiys'] = citiys.toJson();
     _data['localizations'] = localizations.toJson();
     return _data;
@@ -99,7 +102,7 @@ class Attributes {
   @override
   String toString() {
     return """
-    Attributes(
+    StateDataAttributes(
       Name: $Name, 
       createdAt: $createdAt, 
       updatedAt: $updatedAt, 
@@ -113,14 +116,14 @@ class Attributes {
   }
 }
 
-class Flag {
-  Flag({
+class StateDataAttributesFlag {
+  StateDataAttributesFlag({
     required this.data,
   });
-  late final DataFlag data;
+  late final StateDataAttributesFlagData data;
 
-  Flag.fromJson(Map<String, dynamic> json) {
-    data = DataFlag.fromJson(json['data']);
+  StateDataAttributesFlag.fromJson(Map<String, dynamic> json) {
+    data = StateDataAttributesFlagData.fromJson(json['data']);
   }
 
   Map<String, dynamic> toJson() {
@@ -130,20 +133,20 @@ class Flag {
   }
 
   @override
-  String toString() => 'Flag(data: $data)';
+  String toString() => 'StateDataAttributesFlag(data: $data)';
 }
 
-class DataFlag {
-  DataFlag({
+class StateDataAttributesFlagData {
+  StateDataAttributesFlagData({
     required this.id,
     required this.attributes,
   });
   late final int id;
-  late final AttributesFlag attributes;
+  late final StateDataAttributesFlagDataAttributes attributes;
 
-  DataFlag.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesFlagData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    attributes = AttributesFlag.fromJson(json['attributes']);
+    attributes = StateDataAttributesFlagDataAttributes.fromJson(json['attributes']);
   }
 
   Map<String, dynamic> toJson() {
@@ -155,15 +158,15 @@ class DataFlag {
 
   @override
   String toString() => """
-  DataFlag(
+  StateDataAttributesFlagData(
     id: $id, 
     attributes: $attributes
   )
   """;
 }
 
-class AttributesFlag {
-  AttributesFlag({
+class StateDataAttributesFlagDataAttributes {
+  StateDataAttributesFlagDataAttributes({
     required this.name,
     required this.alternativeText,
     required this.caption,
@@ -198,7 +201,7 @@ class AttributesFlag {
   late final String createdAt;
   late final String updatedAt;
 
-  AttributesFlag.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesFlagDataAttributes.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     alternativeText = json['alternativeText'];
     caption = json['caption'];
@@ -241,7 +244,7 @@ class AttributesFlag {
   @override
   String toString() {
     return """
-    AttributesFlag(
+    StateDataAttributesFlagDataAttributes(
       name: $name, 
       alternativeText: $alternativeText, 
       caption: $caption, 
@@ -263,14 +266,14 @@ class AttributesFlag {
   }
 }
 
-class City {
-  City({
+class StateDataAttributesCity {
+  StateDataAttributesCity({
     required this.citiys,
   });
-  late final Citiys citiys;
+  late final StateDataAttributesCities citiys;
 
-  City.fromJson(Map<String, dynamic> json) {
-    citiys = Citiys.fromJson(json['citiys']);
+  StateDataAttributesCity.fromJson(Map<String, dynamic> json) {
+    citiys = StateDataAttributesCities.fromJson(json['citiys']);
   }
 
   Map<String, dynamic> toJson() {
@@ -281,20 +284,20 @@ class City {
 
   @override
   String toString() => """
-  City(
+  CityState(
     citiys: $citiys
   )
   """;
 }
 
-class Citiys {
-  Citiys({
+class StateDataAttributesCities {
+  StateDataAttributesCities({
     required this.data,
   });
-  late final List<DataCity> data;
+  late final List<StateDataAttributesCityData> data;
 
-  Citiys.fromJson(Map<String, dynamic> json) {
-    data = List.from(json['data']).map((e) => DataCity.fromJson(e)).toList();
+  StateDataAttributesCities.fromJson(Map<String, dynamic> json) {
+    data = List.from(json['data']).map((e) => StateDataAttributesCityData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -305,23 +308,23 @@ class Citiys {
 
   @override
   String toString() => """
-  Citiys(
+  StateDataAttributesCities(
     data: $data
   )
   """;
 }
 
-class DataCity {
-  DataCity({
+class StateDataAttributesCityData {
+  StateDataAttributesCityData({
     required this.id,
     required this.attributes,
   });
   late final int id;
-  late final AttributesCity attributes;
+  late final StateDataAttributesCityDataAttributes attributes;
 
-  DataCity.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesCityData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    attributes = AttributesCity.fromJson(json['attributes']);
+    attributes = StateDataAttributesCityDataAttributes.fromJson(json['attributes']);
   }
 
   Map<String, dynamic> toJson() {
@@ -333,15 +336,15 @@ class DataCity {
 
   @override
   String toString() => """
-  DataCity(
+  StateDataAttributesCityData(
     id: $id,
     attributes: $attributes
   )
   """;
 }
 
-class AttributesCity {
-  AttributesCity({
+class StateDataAttributesCityDataAttributes {
+  StateDataAttributesCityDataAttributes({
     required this.Name,
     required this.Population,
     required this.createdAt,
@@ -356,7 +359,7 @@ class AttributesCity {
   late final String publishedAt;
   late final String locale;
 
-  AttributesCity.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesCityDataAttributes.fromJson(Map<String, dynamic> json) {
     Name = json['Name'];
     Population = json['Population'];
     createdAt = json['createdAt'];
@@ -379,7 +382,7 @@ class AttributesCity {
   @override
   String toString() {
     return """
-    AttributesCity(
+    StateDataAttributesCityDataAttributes(
       Name: $Name, 
       Population: $Population, 
       createdAt: $createdAt, 
@@ -391,14 +394,14 @@ class AttributesCity {
   }
 }
 
-class Localization {
-  Localization({
+class StateDataAttributesLocalization {
+  StateDataAttributesLocalization({
     required this.localizations,
   });
-  late final Localizations localizations;
+  late final StateDataAttributesLocalizations localizations;
 
-  Localization.fromJson(Map<String, dynamic> json) {
-    localizations = Localizations.fromJson(json['localizations']);
+  StateDataAttributesLocalization.fromJson(Map<String, dynamic> json) {
+    localizations = StateDataAttributesLocalizations.fromJson(json['localizations']);
   }
 
   Map<String, dynamic> toJson() {
@@ -409,20 +412,20 @@ class Localization {
 
   @override
   String toString() => """
-  Localization(
+  StateDataAttributesLocalization(
     localizations: $localizations
   )
   """;
 }
 
-class Localizations {
-  Localizations({
+class StateDataAttributesLocalizations {
+  StateDataAttributesLocalizations({
     required this.data,
   });
-  late final List<DataLocale> data;
+  late final List<StateDataAttributesLocalizationsData> data;
 
-  Localizations.fromJson(Map<String, dynamic> json) {
-    data = List.from(json['data']).map((e) => DataLocale.fromJson(e)).toList();
+  StateDataAttributesLocalizations.fromJson(Map<String, dynamic> json) {
+    data = List.from(json['data']).map((e) => StateDataAttributesLocalizationsData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -433,23 +436,23 @@ class Localizations {
 
   @override
   String toString() => """
-  Localizations(
+  StateDataAttributesLocalizations(
     data: $data
   )
   """;
 }
 
-class DataLocale {
-  DataLocale({
+class StateDataAttributesLocalizationsData {
+  StateDataAttributesLocalizationsData({
     required this.id,
     required this.attributes,
   });
   late final int id;
-  late final AttributesLocale attributes;
+  late final StateDataAttributesLocalizationsDataAttributes attributes;
 
-  DataLocale.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesLocalizationsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    attributes = AttributesLocale.fromJson(json['attributes']);
+    attributes = StateDataAttributesLocalizationsDataAttributes.fromJson(json['attributes']);
   }
 
   Map<String, dynamic> toJson() {
@@ -461,15 +464,15 @@ class DataLocale {
 
   @override
   String toString() => """
-  DataLocale(
+  StateDataAttributesLocalizationsData(
     id: $id, 
     attributes: $attributes
   )
   """;
 }
 
-class AttributesLocale {
-  AttributesLocale({
+class StateDataAttributesLocalizationsDataAttributes {
+  StateDataAttributesLocalizationsDataAttributes({
     required this.Name,
     required this.createdAt,
     required this.updatedAt,
@@ -483,7 +486,7 @@ class AttributesLocale {
   late final String publishedAt;
   late final String locale;
 
-  AttributesLocale.fromJson(Map<String, dynamic> json) {
+  StateDataAttributesLocalizationsDataAttributes.fromJson(Map<String, dynamic> json) {
     Name = json['Name'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -504,7 +507,7 @@ class AttributesLocale {
   @override
   String toString() {
     return """
-    AttributesLocale(
+    StateDataAttributesLocalizationsDataAttributes(
       Name: $Name,
       createdAt: $createdAt, 
       updatedAt: $updatedAt, 
@@ -515,14 +518,14 @@ class AttributesLocale {
   }
 }
 
-class Meta {
-  Meta({
+class StatesMeta {
+  StatesMeta({
     required this.pagination,
   });
-  late final Pagination pagination;
+  late final StatesMetaPagination pagination;
 
-  Meta.fromJson(Map<String, dynamic> json) {
-    pagination = Pagination.fromJson(json['pagination']);
+  StatesMeta.fromJson(Map<String, dynamic> json) {
+    pagination = StatesMetaPagination.fromJson(json['pagination']);
   }
 
   Map<String, dynamic> toJson() {
@@ -539,8 +542,8 @@ class Meta {
   """;
 }
 
-class Pagination {
-  Pagination({
+class StatesMetaPagination {
+  StatesMetaPagination({
     required this.page,
     required this.pageSize,
     required this.pageCount,
@@ -551,7 +554,7 @@ class Pagination {
   late final int pageCount;
   late final int total;
 
-  Pagination.fromJson(Map<String, dynamic> json) {
+  StatesMetaPagination.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     pageSize = json['pageSize'];
     pageCount = json['pageCount'];
@@ -570,26 +573,12 @@ class Pagination {
   @override
   String toString() {
     return """
-    Pagination(
+    StatesMetaPagination(
       page: $page, 
       pageSize: $pageSize, 
       pageCount: $pageCount, 
       total: $total
     )
     """;
-  }
-}
-
-List<MyState>? parseMyStates(dynamic data) {
-  if (data is String) {
-    return jsonDecode(data)
-        .cast<Map<String, dynamic>>()
-        .map<MyState>((json) => MyState.fromJson(json))
-        .toList();
-  } else {
-    return data
-        .cast<Map<String, dynamic>>()
-        .map<MyState>((json) => MyState.fromJson(json))
-        .toList();
   }
 }
