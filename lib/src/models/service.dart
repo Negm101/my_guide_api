@@ -8,7 +8,7 @@ class Service {
   ServMeta? meta;
 
   factory Service.fromJson(Map<String, dynamic> json) => Service(
-        data: json["data"] == null ? null : json["data"],
+        data: json["data"],
         meta: ServMeta.fromJson(json["meta"]),
       );
 
