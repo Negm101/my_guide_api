@@ -11,4 +11,4 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 ## Features
-This Dart Package Consumes a Restfull Api
+This Dart Package that helps consume a Restfull Api easly for a flutter application
