@@ -50,6 +50,7 @@ class SerRedAttributes {
     this.universities,
     this.content,
     this.localizations,
+    this.pictures,
   });
 
   String? title;
@@ -61,20 +62,23 @@ class SerRedAttributes {
   ServUniversities? universities;
   List<Content>? content;
   ServLocalizations? localizations;
+  Pictures? pictures;
 
-  factory SerRedAttributes.fromJson(Map<String, dynamic> json) =>
-      SerRedAttributes(
-        title: json["Title"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        publishedAt: DateTime.parse(json["publishedAt"]),
-        locale: json["locale"],
-        icon: ServIcon.fromJson(json["Icon"]),
-        universities: ServUniversities.fromJson(json["universities"]),
-        content:
-            List<Content>.from(json["Content"].map((x) => Content.fromJson(x))),
-        localizations: ServLocalizations.fromJson(json["localizations"]),
-      );
+  factory SerRedAttributes.fromJson(Map<String, dynamic> json) {
+    return SerRedAttributes(
+      title: json["Title"],
+      createdAt: DateTime.parse(json["createdAt"]),
+      updatedAt: DateTime.parse(json["updatedAt"]),
+      publishedAt: DateTime.parse(json["publishedAt"]),
+      locale: json["locale"],
+      icon: ServIcon.fromJson(json["Icon"]),
+      universities: ServUniversities.fromJson(json["universities"]),
+      pictures: Pictures.fromJson(json["Pictures"]),
+      content:
+          List<Content>.from(json["Content"].map((x) => Content.fromJson(x))),
+      localizations: ServLocalizations.fromJson(json["localizations"]),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "Title": title,
@@ -332,11 +336,12 @@ class ServUniversities {
 
   List<ServUniversitiesDatum>? data;
 
-  factory ServUniversities.fromJson(Map<String, dynamic> json) =>
-      ServUniversities(
-        data: List<ServUniversitiesDatum>.from(
-            json["data"].map((x) => ServUniversitiesDatum.fromJson(x))),
-      );
+  factory ServUniversities.fromJson(Map<String, dynamic> json) {
+    return ServUniversities(
+      data: List<ServUniversitiesDatum>.from(
+          json["data"].map((x) => ServUniversitiesDatum.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data!.map((x) => x.toJson())),
@@ -443,4 +448,191 @@ class ServPagination {
         "pageCount": pageCount,
         "total": total,
       };
+}
+class Pictures {
+    Pictures({
+        this.data,
+    });
+
+    List<PicturesDatum>? data;
+
+    factory Pictures.fromJson(Map<String, dynamic> json) => Pictures(
+        data: json["data"] == null ? null : List<PicturesDatum>.from(json["data"].map((x) => PicturesDatum.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "data": data == null ? null : List<dynamic>.from(data!.map((x) => x.toJson())),
+    };
+}
+
+class PicturesDatum {
+    PicturesDatum({
+        this.id,
+        this.attributes,
+    });
+
+    int? id;
+    FluffyAttributes? attributes;
+
+    factory PicturesDatum.fromJson(Map<String, dynamic> json) => PicturesDatum(
+        id: json["id"],
+        attributes: FluffyAttributes.fromJson(json["attributes"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "attributes": attributes?.toJson(),
+    };
+}
+
+class FluffyAttributes {
+    FluffyAttributes({
+        this.name,
+        this.alternativeText,
+        this.caption,
+        this.width,
+        this.height,
+        this.formats,
+        this.hash,
+        this.ext,
+        this.mime,
+        this.size,
+        this.url,
+        this.previewUrl,
+        this.provider,
+        this.providerMetadata,
+        this.createdAt,
+        this.updatedAt,
+    });
+
+    String? name;
+    String? alternativeText;
+    String? caption;
+    int? width;
+    int? height;
+    FluffyFormats? formats;
+    String? hash;
+    String? ext;
+    String? mime;
+    double? size;
+    String? url;
+    dynamic previewUrl;
+    String? provider;
+    dynamic providerMetadata;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+
+    factory FluffyAttributes.fromJson(Map<String, dynamic> json) => FluffyAttributes(
+        name: json["name"],
+        alternativeText: json["alternativeText"],
+        caption: json["caption"],
+        width: json["width"],
+        height: json["height"],
+        formats: FluffyFormats.fromJson(json["formats"]),
+        hash: json["hash"],
+        ext: json["ext"],
+        mime: json["mime"],
+        size: json["size"].toDouble(),
+        url: json["url"],
+        previewUrl: json["previewUrl"],
+        provider: json["provider"],
+        providerMetadata: json["provider_metadata"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+        "alternativeText": alternativeText,
+        "caption": caption,
+        "width": width,
+        "height": height,
+        "formats": formats?.toJson(),
+        "hash": hash,
+        "ext": ext,
+        "mime": mime,
+        "size": size,
+        "url": url,
+        "previewUrl": previewUrl,
+        "provider": provider,
+        "provider_metadata": providerMetadata,
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
+    };
+}
+
+class FluffyFormats {
+    FluffyFormats({
+        this.large,
+        this.small,
+        this.medium,
+        this.thumbnail,
+    });
+
+    Small? large;
+    Small? small;
+    Small? medium;
+    Small? thumbnail;
+
+    factory FluffyFormats.fromJson(Map<String, dynamic> json) => FluffyFormats(
+        large: json["large"] == null ? null : Small.fromJson(json["large"]),
+        small: Small.fromJson(json["small"]),
+        medium: json["medium"] == null ? null : Small.fromJson(json["medium"]),
+        thumbnail: Small.fromJson(json["thumbnail"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "large": large == null ? null : large?.toJson(),
+        "small": small?.toJson(),
+        "medium": medium == null ? null : medium?.toJson(),
+        "thumbnail": thumbnail?.toJson(),
+    };
+}
+
+class Small {
+    Small({
+        this.ext,
+        this.url,
+        this.hash,
+        this.mime,
+        this.name,
+        this.path,
+        this.size,
+        this.width,
+        this.height,
+    });
+
+    String? ext;
+    String? url;
+    String? hash;
+    String? mime;
+    String? name;
+    dynamic path;
+    double? size;
+    int? width;
+    int? height;
+
+    factory Small.fromJson(Map<String, dynamic> json) => Small(
+        ext: json["ext"],
+        url: json["url"],
+        hash: json["hash"],
+        mime: json["mime"],
+        name: json["name"],
+        path: json["path"],
+        size: json["size"].toDouble(),
+        width: json["width"],
+        height: json["height"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "ext": ext,
+        "url": url,
+        "hash": hash,
+        "mime": mime,
+        "name": name,
+        "path": path,
+        "size": size,
+        "width": width,
+        "height": height,
+    };
 }

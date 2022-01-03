@@ -5,7 +5,7 @@ void main() async {
   final api = MYGuideApi("http://localhost:4002/api/");
   final MYGRespnose resStates = await api.states.fetch(args: {"populate": "*"});
   final MYGRespnose resCities = await api.cities.fetch(args: {"populate": "*"});
-  final MYGRespnose resServices =await api.services.fetch(args: {"populate": "*", "filters[Title][\$containsi]": "Res"});
+  final MYGRespnose resServices =await api.services.fetch(args: {"populate": "*"});
   final MYGRespnose resUniversities =
       await api.university.fetch(args: {"populate": "*"});
   MyState myState = resStates.data as MyState;
@@ -13,8 +13,8 @@ void main() async {
   Service service = resServices.data as Service;
   University university = resUniversities.data as University;
 
-  print(myState.dataList![0].id);
-  print(city.data![0].id);
-  print(service.data![0].attributes?.icon?.data?.attributes.toString());
-  print(university.data![0].id);
+  //print(myState.dataList![0].id);
+  //print(city.data![0].id);
+  print(service.data![0].attributes?.pictures?.data?[0].attributes?.url);
+  //print(university.data![0].attributes?.picture?.data?[0].attributes?.previewUrl);
 }

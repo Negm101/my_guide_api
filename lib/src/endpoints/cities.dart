@@ -10,7 +10,6 @@ class _Cities {
     try {
       if (id != null) {
         final MYGRespnose res = await _api.fetch('$_name/$id', args: args);
-        print(res.data);
         return MYGRespnose(
           statusCode: res.statusCode,
           //data: City.fromJson(res.data),
