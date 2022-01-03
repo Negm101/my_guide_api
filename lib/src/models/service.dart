@@ -62,7 +62,7 @@ class SerRedAttributes {
   ServUniversities? universities;
   List<Content>? content;
   ServLocalizations? localizations;
-  Pictures? pictures;
+  ServPictures? pictures;
 
   factory SerRedAttributes.fromJson(Map<String, dynamic> json) {
     return SerRedAttributes(
@@ -73,7 +73,7 @@ class SerRedAttributes {
       locale: json["locale"],
       icon: ServIcon.fromJson(json["Icon"]),
       universities: ServUniversities.fromJson(json["universities"]),
-      pictures: Pictures.fromJson(json["Pictures"]),
+      pictures: ServPictures.fromJson(json["Pictures"]),
       content:
           List<Content>.from(json["Content"].map((x) => Content.fromJson(x))),
       localizations: ServLocalizations.fromJson(json["localizations"]),
@@ -449,14 +449,14 @@ class ServPagination {
         "total": total,
       };
 }
-class Pictures {
-    Pictures({
+class ServPictures {
+    ServPictures({
         this.data,
     });
 
     List<PicturesDatum>? data;
 
-    factory Pictures.fromJson(Map<String, dynamic> json) => Pictures(
+    factory ServPictures.fromJson(Map<String, dynamic> json) => ServPictures(
         data: json["data"] == null ? null : List<PicturesDatum>.from(json["data"].map((x) => PicturesDatum.fromJson(x))),
     );
 
